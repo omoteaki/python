@@ -124,3 +124,132 @@ for valueptr in ptr:
             m = "×"
         msg = "パターン" + valueptr + "(文字列)" + valuestr + "(マッチ)" + m
         print(msg)
+
+
+# sample8
+import re
+
+ptr = [
+    "TXT.",
+    "TXT..",
+    ".TXT",
+    "..TXT",
+]
+str = [
+    "TXT",
+    "TXTT",
+    "TXTTT",
+    "TTXT",
+    "TTTXT",
+]
+
+for valueptr in ptr:
+    print("------")
+    pattern = re.compile(valueptr)   # パターン文字列をコンパイル
+    for valuestr in str:
+        res = pattern.search(valuestr)   # 戻り値はNone
+        if res is not None:
+            m = "◯"
+        else:
+            m = "×"
+        msg = "パターン" + valueptr + "(文字列)" + valuestr + "(マッチ)" + m
+        print(msg)
+
+
+# sample9
+import re
+
+ptr = [
+    "[012]",   # 3だけx
+    "[0-3]",   # 全部o
+    "[^012]",   # 3だけo
+]
+str = ["0", "1", "2", "3"]
+
+for valueptr in ptr:
+    print("------")
+    pattern = re.compile(valueptr)   # パターン文字列をコンパイル
+    for valuestr in str:
+        res = pattern.search(valuestr)   # 戻り値はNone
+        if res is not None:
+            m = "◯"
+        else:
+            m = "×"
+        msg = "パターン" + valueptr + "(文字列)" + valuestr + "(マッチ)" + m
+        print(msg)
+
+
+# 繰り返しの正規表現
+# sample10
+import re
+
+ptr = [
+    "T*",   # 0回以上の繰り返し (全部o)
+    "T+",   # 1回以上の繰り返し (X以外o)
+    "T?",   # 0または1回の繰り返し (Xだけo だと思っていたけど、実行結果は全部o。0回の繰り返しだからTがなくてもマッチする)
+    "T{3}",   # 3回の繰り返し (TTTだけo だと思っていたけど、実行結果はTTTTもo。3回の繰り返しを含んでいるからマッチする)
+]
+str = [
+    "X",
+    "TT",
+    "TTT",
+    "TTTT",
+]
+
+for valueptr in ptr:
+    print("------")
+    pattern = re.compile(valueptr)   # パターン文字列をコンパイル
+    for valuestr in str:
+        res = pattern.search(valuestr)   # 戻り値はNone
+        if res is not None:
+            m = "◯"
+        else:
+            m = "×"
+        msg = "パターン" + valueptr + "(文字列)" + valuestr + "(マッチ)" + m
+        print(msg)
+
+
+# グループ化と選択を行う正規表現
+# sample11
+import re
+
+ptr = [
+    "(TXT)+",   # TXTとTXTXTがo
+    "TXT|XTX",   # TX以外o
+]
+str = [
+    "TX",
+    "TXT",
+    "XTX",
+    "TXTXT",
+]
+
+for valueptr in ptr:
+    print("------")
+    pattern = re.compile(valueptr)   # パターン文字列をコンパイル
+    for valuestr in str:
+        res = pattern.search(valuestr)   # 戻り値はNone
+        if res is not None:
+            m = "◯"
+        else:
+            m = "×"
+        msg = "パターン" + valueptr + "(文字列)" + valuestr + "(マッチ)" + m
+        print(msg)
+
+
+# sample12
+import re
+
+ptr = "\.(csv|html|py)$"
+str = [
+    "sample.csv",
+    "sample.exe",
+    "test.py",
+    "index.html",
+]
+
+pattern = re.compile(ptr)
+for valuestr in str:
+    res = pattern.sub(".txt", valuestr)
+    msg = "(変換前)" + valuestr + "(変換後)" + res
+    print(msg)
